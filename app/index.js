@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { fetchTopStocks } from '../utils/api';
+import { useRouter } from 'expo-router';
+
 
 const ITEMS_PER_PAGE = 10;
 const API_KEY = "ct9sq51r01quh43oro60ct9sq51r01quh43oro6g";
@@ -40,6 +42,8 @@ export default function IndexScreen() {
 
   const [combinedResults, setCombinedResults] = useState([]);
   const [enrichedResults, setEnrichedResults] = useState([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const loadData = async () => {
@@ -171,6 +175,9 @@ export default function IndexScreen() {
   // Placeholder function for handling item press
   const handleItemPress = (stock) => {
     // TODO: Implement navigation or show details screen when pressed
+    router.push({
+      pathname: `/${stock.symbol}`, // Navigate to the stock details page
+    });
     console.log("Pressed on", stock.symbol);
   };
 
