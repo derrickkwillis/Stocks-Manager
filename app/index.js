@@ -33,7 +33,6 @@ async function getCurrentPrice(symbol) {
 export default function IndexScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [favorites, setFavorites] = useState([]);
 
   const [allStocks, setAllStocks] = useState([]);    // top 50 large-cap
   const [allSymbols, setAllSymbols] = useState([]);  // full symbol list
@@ -160,18 +159,6 @@ export default function IndexScreen() {
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const displayedStocks = enrichedResults.slice(startIndex, endIndex);
 
-  const isFavorite = (symbol) => favorites.includes(symbol);
-
-  const toggleFavorite = (symbol) => {
-    setFavorites(prev => {
-      if (prev.includes(symbol)) {
-        return prev.filter(item => item !== symbol);
-      } else {
-        return [...prev, symbol];
-      }
-    });
-  };
-
   // Placeholder function for handling item press
   const handleItemPress = (stock) => {
     // TODO: Implement navigation or show details screen when pressed
@@ -216,13 +203,6 @@ export default function IndexScreen() {
                       <Text style={{ fontStyle: 'italic', color: '#999' }}>No detailed data</Text>
                     )}
                   </View>
-                  <TouchableOpacity onPress={() => toggleFavorite(item.symbol)}>
-                    <Ionicons
-                      name={isFavorite(item.symbol) ? "star" : "star-outline"}
-                      size={24}
-                      color="gold"
-                    />
-                  </TouchableOpacity>
                 </View>
               </Pressable>
             )}
